@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>GrantEase - Complete Scholarship Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --primary-soft: #e0e7ff;
+            --secondary: #8b5cf6;
+            --secondary-dark: #7c3aed;
+            --secondary-light: #a78bfa;
+            --secondary-soft: #ede9fe;
+            --success: #10b981;
+            --success-dark: #059669;
+            --success-light: #34d399;
+            --success-soft: #d1fae5;
+            --warning: #f59e0b;
+            --warning-dark: #d97706;
+            --warning-soft: #fef3c7;
+            --danger: #ef4444;
+            --danger-dark: #dc2626;
+            --danger-soft: #fee2e2;
+            --info: #3b82f6;
+            --info-soft: #dbeafe;
+            --dark: #0f172a;
+            --dark-soft: #1e293b;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --gray-soft: #cbd5e1;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            --gradient-info: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            --radius-sm: 0.375rem;
+            --radius: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-2xl: 2rem;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #fae8ff 50%, #fce7f3 75%, #fef3c7 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.5;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--light); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--gradient-primary); border-radius: 10px; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; width: 100%; }
+
+        h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.25; margin-bottom: 0.5rem; }
+        h1 { font-size: clamp(1.75rem, 5vw, 2.5rem); }
+        h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+        h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            width: 100%;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .logo i { background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.75rem; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); background: var(--primary-soft); }
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--primary-soft), var(--secondary-soft));
+            padding: 0.5rem 1.25rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .user-menu:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .user-menu .avatar-icon { font-size: 1.5rem; color: var(--primary); }
+        .user-menu span { font-weight: 600; color: var(--dark); }
+        .mobile-menu-btn { display: none; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--primary); padding: 0.5rem; border-radius: var(--radius); }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle fill="rgba(255,255,255,0.05)" cx="50" cy="50" r="20"/><circle fill="rgba(255,255,255,0.05)" cx="150" cy="120" r="30"/><circle fill="rgba(255,255,255,0.05)" cx="80" cy="160" r="15"/></svg>');
+            opacity: 0.3;
+        }
+        .hero h1 { font-size: clamp(1.75rem, 5vw, 2.75rem); margin-bottom: 1rem; color: white; background: none; -webkit-background-clip: unset; }
+        .hero p { font-size: clamp(1rem, 3vw, 1.25rem); opacity: 0.95; }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient-primary); }
+        .stat-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); }
+        .stat-card i { font-size: 2.5rem; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
+        .stat-card h3 { font-size: 0.875rem; color: var(--gray); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-card .value { font-size: 2rem; font-weight: 800; background: var(--gradient-dark); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .stat-card .trend { font-size: 0.75rem; margin-top: 0.5rem; color: var(--gray); }
+
+        /* Application Cards */
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.5rem;
+        }
+        .app-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .app-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-xl); }
+        .app-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+        .app-title { font-weight: 700; font-size: 1.125rem; color: var(--dark); }
+
+        /* Status Badges */
+        .status { padding: 0.375rem 1rem; border-radius: 60px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+        .status::before { content: '●'; font-size: 0.625rem; }
+        .status-pending { background: var(--warning-soft); color: var(--warning-dark); }
+        .status-approved { background: var(--success-soft); color: var(--success-dark); }
+        .status-rejected { background: var(--danger-soft); color: var(--danger-dark); }
+        .status-review { background: var(--info-soft); color: var(--info); }
+        .status-compliant { background: var(--success-soft); color: var(--success-dark); }
+        .status-noncompliant { background: var(--danger-soft); color: var(--danger-dark); }
+
+        .app-date { font-size: 0.75rem; color: var(--gray-light); margin: 0.5rem 0; display: flex; align-items: center; gap: 6px; }
+
+        /* Buttons */
+        .btn {
+            padding: 0.625rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary { background: var(--gradient-primary); color: white; box-shadow: var(--shadow-md); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--gradient-primary); color: white; border-color: transparent; }
+        .btn-success { background: var(--gradient-success); color: white; }
+        .btn-danger { background: var(--gradient-danger); color: white; }
+        .btn-sm { padding: 0.375rem 1rem; font-size: 0.75rem; }
+
+        /* Form */
+        .form-container {
+            background: var(--white);
+            border-radius: var(--radius-2xl);
+            padding: 2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-xl);
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--dark); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.875rem; border: 2px solid var(--gray-soft); border-radius: var(--radius);
+            font-size: 1rem; font-family: inherit; transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+
+        /* Tables */
+        .table-container { overflow-x: auto; background: var(--white); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); margin-bottom: 1.5rem; }
+        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        .data-table th, .data-table td { padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid var(--gray-soft); }
+        .data-table th { background: var(--gradient-dark); color: white; font-weight: 600; }
+        .data-table tr:hover { background: linear-gradient(90deg, var(--primary-soft), var(--secondary-soft)); }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 0.75rem; border-bottom: 2px solid var(--gray-soft); margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .tab { padding: 0.75rem 1.75rem; background: none; border: none; cursor: pointer; font-weight: 600; color: var(--gray); transition: all 0.3s; }
+        .tab.active { color: var(--primary); background: var(--primary-soft); border-radius: var(--radius) var(--radius) 0 0; }
+
+        /* Action Buttons */
+        .action-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn-approve { background: var(--success); color: white; padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer; border: none; font-size: 0.75rem; font-weight: 600; transition: all 0.3s; }
+        .btn-approve:hover { background: var(--success-dark); transform: scale(1.02); }
+        .btn-reject { background: var(--danger); color: white; padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer; border: none; font-size: 0.75rem; font-weight: 600; transition: all 0.3s; }
+        .btn-reject:hover { background: var(--danger-dark); transform: scale(1.02); }
+        .btn-review { background: var(--info); color: white; padding: 0.5rem 1rem; border-radius: var(--radius); cursor: pointer; border: none; font-size: 0.75rem; font-weight: 600; transition: all 0.3s; }
+        .btn-review:hover { background: var(--info-dark); transform: scale(1.02); }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 30px; right: 30px; background: var(--gradient-dark); color: white;
+            padding: 1rem 1.5rem; border-radius: var(--radius-lg); display: flex; align-items: center; gap: 12px;
+            z-index: 2000; animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards; box-shadow: var(--shadow-xl);
+        }
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
+
+        /* Footer */
+        .footer { background: var(--gradient-dark); color: var(--gray-light); text-align: center; padding: 2rem; margin-top: 3rem; width: 100%; }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .timeline-step {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem;
+            background: var(--light);
+            border-radius: var(--radius);
+            font-size: 0.7rem;
+        }
+        .timeline-step.completed { background: var(--success-soft); color: var(--success-dark); }
+        .timeline-step.active { background: var(--primary-soft); color: var(--primary); }
+        .timeline-step.pending { background: var(--warning-soft); color: var(--warning-dark); }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--radius-2xl);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .mobile-menu-btn { display: block; }
+            .nav-links { display: none; width: 100%; flex-direction: column; gap: 0.75rem; padding: 1rem 0; }
+            .nav-links.show { display: flex; }
+            .nav-container { padding: 1rem; }
+            .stats-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+            .applications-grid { grid-template-columns: 1fr; }
+            .form-container { padding: 1.5rem; margin: 1rem; }
+            .hero { padding: 2rem 1.5rem; }
+            .action-buttons { flex-direction: column; }
+            .btn-sm { width: 100%; }
+        }
+        @media (max-width: 480px) {
+            .user-menu span { display: none; }
+            .stat-card .value { font-size: 1.5rem; }
+            .app-header { flex-direction: column; }
+        }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .stat-card, .app-card { animation: fadeInUp 0.5s ease forwards; }
+
+        /* Login - Centered */
+        .login-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            padding: 1rem;
+            z-index: 1000;
+        }
+        .login-card {
+            background: var(--white);
+            border-radius: var(--radius-2xl);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: var(--shadow-2xl);
+        }
+        .role-selector {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .role-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-soft);
+            background: white;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .role-btn.active { background: var(--gradient-primary); color: white; border-color: transparent; }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen">
+        <div class="login-wrapper">
+            <div class="login-card">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <i class="fas fa-graduation-cap" style="font-size: 3rem; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
+                    <h1 style="margin-top: 0.5rem;">GrantEase</h1>
+                    <p style="color: var(--gray);">Scholarship Management System</p>
+                </div>
+                <div class="role-selector" id="roleSelector">
+                    <button class="role-btn active" data-role="student">🎓 Student</button>
+                    <button class="role-btn" data-role="admin">👔 Admin</button>
+                    <button class="role-btn" data-role="registrar">📋 Registrar</button>
+                    <button class="role-btn" data-role="sponsor">💰 Sponsor</button>
+                </div>
+                <div class="form-group">
+                    <label>Email / Student ID</label>
+                    <input type="text" id="loginEmail" placeholder="Enter your email or student ID">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="login()">Sign In <i class="fas fa-arrow-right"></i></button>
+                <div style="margin-top: 1rem; padding: 0.75rem; background: var(--light); border-radius: var(--radius); font-size: 0.7rem; text-align: center;">
+                    <i class="fas fa-info-circle"></i> Demo: Any email/password works
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" style="display: none; width: 100%;">
+        <div class="navbar">
+            <div class="nav-container">
+                <div class="logo" onclick="showDashboard(currentRole)">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>GrantEase</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <div id="dynamicNavLinks"></div>
+                    <div class="user-menu" onclick="logout()">
+                        <i class="fas fa-user-circle avatar-icon"></i>
+                        <span id="userName">Student</span>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="heroSection" class="hero">
+            <div class="container">
+                <h1 id="heroTitle">Welcome back! 👋</h1>
+                <p id="heroSubtitle">Manage your scholarship applications</p>
+            </div>
+        </div>
+        <div class="container" id="mainContent"></div>
+        <footer class="footer">
+            <p>GrantEase Scholarship Management System | Compliant with RA 10173 (Data Privacy Act of 2012)</p>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">© 2025 National Teachers College - BSIT 2.3</p>
+        </footer>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-plus"></i> Add New Student</h3>
+                <button class="close-modal" onclick="closeAddStudentModal()">&times;</button>
+            </div>
+            <form id="addStudentForm" onsubmit="event.preventDefault(); addNewStudent();">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="newStudentName" required placeholder="Enter student name">
+                </div>
+                <div class="form-group">
+                    <label>Student ID</label>
+                    <input type="text" id="newStudentId" required placeholder="e.g., NTC-2025-0001">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="newStudentEmail" required placeholder="student@ntc.edu.ph">
+                </div>
+                <div class="form-group">
+                    <label>Course</label>
+                    <select id="newStudentCourse">
+                        <option>BS Information Technology</option>
+                        <option>BS Computer Science</option>
+                        <option>BS Entertainment Computing</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>GPA</label>
+                    <input type="number" step="0.01" id="newStudentGpa" value="1.5" required>
+                </div>
+                <div class="form-group">
+                    <label>Scholarship to Assign</label>
+                    <select id="newStudentScholarship">
+                        <option value="🏆 NTC Excellence Scholarship">🏆 NTC Excellence Scholarship</option>
+                        <option value="📚 Dean's List Grant">📚 Dean's List Grant</option>
+                        <option value="💙 Financial Aid Program">💙 Financial Aid Program</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fas fa-save"></i> Add Student & Assign Scholarship</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+    let currentRole = 'student';
+    let currentAdminView = 'pending';
+
+    // Student Data
+    let studentApplications = [
+        { id: 1, scholarship: '🏆 NTC Excellence Scholarship', status: 'pending', date: '2025-03-15', amount: '₱20,000', trackingId: 'GRT-2025-0001', gpaRequired: '1.5', studentName: 'Maria Santos' },
+        { id: 2, scholarship: '📚 Dean\'s List Grant', status: 'approved', date: '2025-02-28', amount: '₱15,000', trackingId: 'GRT-2025-0002', gpaRequired: '1.8', studentName: 'Maria Santos' },
+        { id: 3, scholarship: '💙 Financial Aid Program', status: 'review', date: '2025-03-20', amount: '₱25,000', trackingId: 'GRT-2025-0003', gpaRequired: 'Any', studentName: 'Maria Santos' }
+    ];
+
+    // All Students List (for Admin)
+    let allStudents = [
+        { id: 1, name: 'Maria Santos', studentId: 'NTC-2024-01234', email: 'maria.santos@ntc.edu.ph', course: 'BS Information Technology', gpa: 1.5, enrolledDate: '2024-06-01' },
+        { id: 2, name: 'Juan Dela Cruz', studentId: 'NTC-2024-01235', email: 'juan.dela@ntc.edu.ph', course: 'BS Computer Science', gpa: 1.5, enrolledDate: '2024-06-01' }
+    ];
+
+    const scholarships = [
+        { name: '🏆 NTC Excellence Scholarship', amount: '₱20,000', deadline: '2025-04-30', slots: 25, gpaReq: '1.5', description: 'For students with outstanding academic performance', requirements: 'Grades (85%+), Certificate of Recognition' },
+        { name: '📚 Dean\'s List Grant', amount: '₱15,000', deadline: '2025-05-15', slots: 40, gpaReq: '1.8', description: 'Open to students who made it to the Dean\'s List', requirements: 'Grades, Dean\'s Certification' },
+        { name: '💙 Financial Aid Program', amount: '₱25,000', deadline: '2025-04-20', slots: 15, gpaReq: 'Any', description: 'For students with financial needs', requirements: 'Income Statement, Grades, Recommendation Letter' }
+    ];
+
+    // Admin Pending Reviews
+    let pendingReviews = [
+        { id: 101, student: 'Juan Dela Cruz', scholarship: '🏆 NTC Excellence', submitted: '2025-03-10', gpa: '1.5', documents: 'Complete', status: 'pending' },
+        { id: 102, student: 'Maria Santos', scholarship: '📚 Dean\'s List', submitted: '2025-03-12', gpa: '1.2', documents: 'Pending', status: 'pending' }
+    ];
+
+    let approvedApplications = [
+        { id: 201, student: 'Jose Rizal', scholarship: 'Financial Aid', approvedDate: '2025-03-05', amount: '₱25,000', reviewer: 'Admin' }
+    ];
+
+    // Registrar Compliance Queue - REAL TIME UPDATABLE
+    let complianceQueue = [
+        { id: 301, student: 'Juan Dela Cruz', scholarship: 'NTC Excellence', submitted: '2025-03-10', documents: ['Grades', 'Certificate'], status: 'pending' },
+        { id: 302, student: 'Jose Rizal', scholarship: 'Financial Aid', submitted: '2025-03-14', documents: ['Income Statement', 'Grades'], status: 'pending' }
+    ];
+
+    let verifiedRecords = [
+        { id: 401, student: 'Maria Santos', scholarship: 'Dean\'s List', verifiedDate: '2025-03-01', status: 'Compliant', verifiedBy: 'Registrar Cruz' }
+    ];
+
+    // Sponsor Data
+    let sponsorData = {
+        totalDisbursed: 1245000,
+        scholarsSupported: 89,
+        activeScholarships: 5,
+        utilizationRate: 78,
+        scholarships: [
+            { name: '🏆 NTC Excellence', total: 500000, disbursed: 400000, remaining: 100000, scholars: 20 },
+            { name: '📚 Dean\'s List', total: 450000, disbursed: 380000, remaining: 70000, scholars: 25 },
+            { name: '💙 Financial Aid', total: 600000, disbursed: 465000, remaining: 135000, scholars: 18 }
+        ]
+    };
+
+    // ==================== REGISTRAR REAL-TIME FUNCTIONS ====================
+    function markCompliance(id, decision) {
+        const index = complianceQueue.findIndex(item => item.id === id);
+        if (index !== -1) {
+            const removed = complianceQueue.splice(index, 1)[0];
+            const newRecord = {
+                id: verifiedRecords.length + 500,
+                student: removed.student,
+                scholarship: removed.scholarship,
+                verifiedDate: new Date().toISOString().split('T')[0],
+                status: decision === 'compliant' ? 'Compliant' : 'Non-Compliant',
+                verifiedBy: 'Registrar User'
+            };
+            verifiedRecords.unshift(newRecord);
+            
+            // Update UI in real-time
+            renderComplianceQueue();
+            renderVerifiedRecords();
+            
+            const pendingCount = document.getElementById('pendingCount');
+            const verifiedCount = document.getElementById('verifiedCount');
+            if (pendingCount) pendingCount.innerText = complianceQueue.length;
+            if (verifiedCount) verifiedCount.innerText = verifiedRecords.length;
+            
+            showToast(`${removed.student} marked as ${decision.toUpperCase()}!`, decision === 'compliant' ? 'success' : 'warning');
+        }
+    }
+
+    function renderComplianceQueue() {
+        const container = document.getElementById('complianceQueueContent');
+        if (container) {
+            if (complianceQueue.length === 0) {
+                container.innerHTML = `<div style="text-align: center; padding: 3rem;"><i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success);"></i><h3>All Clear!</h3><p>No pending compliance requests.</p></div>`;
+            } else {
+                container.innerHTML = `
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Student</th><th>Scholarship</th><th>Submitted</th><th>Required Documents</th><th>Action</th></tr></thead>
+                            <tbody>
+                                ${complianceQueue.map(app => `
+                                    <tr>
+                                        <td><strong>${app.student}</strong></td>
+                                        <td>${app.scholarship}</td>
+                                        <td>${formatDate(app.submitted)}</td>
+                                        <td>${app.documents.map(d => `<span class="status status-pending" style="margin:2px; display:inline-block;">${d}</span>`).join(' ')}</td>
+                                        <td><div class="action-buttons"><button class="btn-approve" onclick="markCompliance(${app.id}, 'compliant')"><i class="fas fa-check"></i> Compliant</button><button class="btn-reject" onclick="markCompliance(${app.id}, 'noncompliant')"><i class="fas fa-times"></i> Non-Compliant</button></div></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    function renderVerifiedRecords() {
+        const container = document.getElementById('verifiedRecordsContent');
+        if (container) {
+            if (verifiedRecords.length === 0) {
+                container.innerHTML = `<div style="text-align: center; padding: 3rem;"><i class="fas fa-folder-open" style="font-size: 3rem; color: var(--gray);"></i><h3>No Records</h3></div>`;
+            } else {
+                container.innerHTML = `
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Student</th><th>Scholarship</th><th>Verified Date</th><th>Status</th><th>Verified By</th></tr></thead>
+                            <tbody>
+                                ${verifiedRecords.map(rec => `
+                                    <tr>
+                                        <td><strong>${rec.student}</strong></td>
+                                        <td>${rec.scholarship}</td>
+                                        <td>${formatDate(rec.verifiedDate)}</td>
+                                        <td><span class="status ${rec.status === 'Compliant' ? 'status-compliant' : 'status-noncompliant'}">${rec.status}</span></td>
+                                        <td>${rec.verifiedBy}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    // ==================== ADMIN FUNCTIONS ====================
+    function adminApproveApplication(id) {
+        const index = pendingReviews.findIndex(item => item.id === id);
+        if (index !== -1) {
+            const approved = pendingReviews.splice(index, 1)[0];
+            approvedApplications.unshift({
+                id: approvedApplications.length + 500,
+                student: approved.student,
+                scholarship: approved.scholarship,
+                approvedDate: new Date().toISOString().split('T')[0],
+                amount: approved.scholarship.includes('NTC') ? '₱20,000' : approved.scholarship.includes('Dean') ? '₱15,000' : '₱25,000',
+                reviewer: 'Admin'
+            });
+            showToast(`✅ ${approved.student}'s application has been APPROVED!`, 'success');
+            renderAdminPendingReviews();
+            updateAdminStats();
+        }
+    }
+
+    function adminRejectApplication(id) {
+        const index = pendingReviews.findIndex(item => item.id === id);
+        if (index !== -1) {
+            const rejected = pendingReviews.splice(index, 1)[0];
+            showToast(`❌ ${rejected.student}'s application has been REJECTED.`, 'warning');
+            renderAdminPendingReviews();
+            updateAdminStats();
+        }
+    }
+
+    function adminReviewApplication(id) {
+        const app = pendingReviews.find(item => item.id === id);
+        if (app) {
+            showToast(`📋 Reviewing ${app.student}'s application - GPA: ${app.gpa}, Documents: ${app.documents}`, 'info');
+        }
+    }
+
+    function updateAdminStats() {
+        const pendingCount = document.getElementById('adminPendingCount');
+        const approvedCount = document.getElementById('adminApprovedCount');
+        if (pendingCount) pendingCount.innerText = pendingReviews.length;
+        if (approvedCount) approvedCount.innerText = approvedApplications.length;
+    }
+
+    function renderAdminPendingReviews() {
+        const container = document.getElementById('adminPendingContent');
+        if (container) {
+            if (pendingReviews.length === 0) {
+                container.innerHTML = `<div style="text-align: center; padding: 3rem;"><i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success);"></i><h3>All Caught Up!</h3><p>No pending applications to review.</p></div>`;
+            } else {
+                container.innerHTML = `
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Student</th><th>Scholarship</th><th>Submitted</th><th>GPA</th><th>Documents</th><th>Actions</th></tr></thead>
+                            <tbody>
+                                ${pendingReviews.map(app => `
+                                    <tr>
+                                        <td><strong>${app.student}</strong></td>
+                                        <td>${app.scholarship}</td>
+                                        <td>${formatDate(app.submitted)}</td>
+                                        <td>${app.gpa}</td>
+                                        <td><span class="status ${app.documents === 'Complete' ? 'status-compliant' : 'status-pending'}">${app.documents}</span></td>
+                                        <td><div class="action-buttons"><button class="btn-approve" onclick="adminApproveApplication(${app.id})"><i class="fas fa-check"></i> Approve</button><button class="btn-review" onclick="adminReviewApplication(${app.id})"><i class="fas fa-eye"></i> Review</button><button class="btn-reject" onclick="adminRejectApplication(${app.id})"><i class="fas fa-times"></i> Reject</button></div></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    function renderAdminApprovedView() {
+        const container = document.getElementById('adminApprovedContent');
+        if (container) {
+            if (approvedApplications.length === 0) {
+                container.innerHTML = `<div style="text-align: center; padding: 3rem;"><i class="fas fa-folder-open" style="font-size: 3rem; color: var(--gray);"></i><h3>No Approved Applications</h3></div>`;
+            } else {
+                container.innerHTML = `
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Student</th><th>Scholarship</th><th>Approved Date</th><th>Amount</th><th>Reviewer</th><th>Status</th></tr></thead>
+                            <tbody>
+                                ${approvedApplications.map(app => `
+                                    <tr><td><strong>${app.student}</strong></td><td>${app.scholarship}</td><td>${formatDate(app.approvedDate)}</td><td>${app.amount}</td><td>${app.reviewer}</td><td><span class="status status-approved">Approved</span></td></tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    function renderAllStudents() {
+        const container = document.getElementById('allStudentsContent');
+        if (container) {
+            container.innerHTML = `
+                <div style="margin-bottom: 1rem;"><button class="btn btn-primary" onclick="openAddStudentModal()"><i class="fas fa-user-plus"></i> Add New Student</button></div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead><tr><th>Student Name</th><th>Student ID</th><th>Email</th><th>Course</th><th>GPA</th><th>Enrolled Date</th></tr></thead>
+                        <tbody>
+                            ${allStudents.map(s => `
+                                <tr><td><strong>${s.name}</strong></td><td>${s.studentId}</td><td>${s.email}</td><td>${s.course}</td><td>${s.gpa}</td><td>${formatDate(s.enrolledDate)}</td></tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+    }
+
+    function openAddStudentModal() {
+        document.getElementById('addStudentModal').style.display = 'flex';
+    }
+
+    function closeAddStudentModal() {
+        document.getElementById('addStudentModal').style.display = 'none';
+        document.getElementById('addStudentForm').reset();
+    }
+
+    function addNewStudent() {
+        const name = document.getElementById('newStudentName').value;
+        const studentId = document.getElementById('newStudentId').value;
+        const email = document.getElementById('newStudentEmail').value;
+        const course = document.getElementById('newStudentCourse').value;
+        const gpa = parseFloat(document.getElementById('newStudentGpa').value);
+        const scholarship = document.getElementById('newStudentScholarship').value;
+
+        if (!name || !studentId || !email) {
+            showToast('Please fill all required fields', 'error');
+            return;
+        }
+
+        // Add to students list
+        allStudents.unshift({
+            id: allStudents.length + 1,
+            name: name,
+            studentId: studentId,
+            email: email,
+            course: course,
+            gpa: gpa,
+            enrolledDate: new Date().toISOString().split('T')[0]
+        });
+
+        // Create scholarship application for the student
+        const newApplication = {
+            id: studentApplications.length + 10,
+            scholarship: scholarship,
+            status: 'pending',
+            date: new Date().toISOString().split('T')[0],
+            amount: scholarship.includes('NTC') ? '₱20,000' : scholarship.includes('Dean') ? '₱15,000' : '₱25,000',
+            trackingId: `GRT-2025-${String(studentApplications.length + 10).padStart(4, '0')}`,
+            gpaRequired: scholarship.includes('NTC') ? '1.5' : scholarship.includes('Dean') ? '1.8' : 'Any',
+            studentName: name
+        };
+        studentApplications.unshift(newApplication);
+
+        // Add to admin pending reviews
+        pendingReviews.unshift({
+            id: pendingReviews.length + 200,
+            student: name.split(' ')[0] + ' ' + name.split(' ')[1],
+            scholarship: scholarship.split(' ').slice(1).join(' '),
+            submitted: new Date().toISOString().split('T')[0],
+            gpa: gpa,
+            documents: 'Pending',
+            status: 'pending'
+        });
+
+        closeAddStudentModal();
+        renderAllStudents();
+        renderAdminPendingReviews();
+        updateAdminStats();
+        showToast(`✅ Student ${name} added and scholarship application submitted!`, 'success');
+    }
+
+    function renderAdminReports() {
+        const container = document.getElementById('adminReportsContent');
+        if (container) {
+            container.innerHTML = `
+                <div class="report-container" style="background:white; border-radius:24px; padding:1.5rem;">
+                    <h3><i class="fas fa-chart-line"></i> Scholarship Reports</h3>
+                    <div class="stats-grid" style="margin-top:1rem;">
+                        <div class="stat-card"><i class="fas fa-file-alt"></i><h3>Total Applications</h3><div class="value">${pendingReviews.length + approvedApplications.length}</div></div>
+                        <div class="stat-card"><i class="fas fa-check-circle"></i><h3>Acceptance Rate</h3><div class="value">${Math.round((approvedApplications.length / (pendingReviews.length + approvedApplications.length || 1)) * 100)}%</div></div>
+                        <div class="stat-card"><i class="fas fa-clock"></i><h3>Avg Processing Time</h3><div class="value">3.2 days</div></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="showToast('Monthly report downloaded!', 'success')"><i class="fas fa-download"></i> Download Full Report (PDF)</button>
+                    <button class="btn btn-outline" style="margin-left: 1rem;" onclick="showToast('Report exported to Excel', 'success')"><i class="fas fa-file-excel"></i> Export to Excel</button>
+                </div>
+            `;
+        }
+    }
+
+    function renderAdminSettings() {
+        const container = document.getElementById('adminSettingsContent');
+        if (container) {
+            container.innerHTML = `
+                <div class="report-container" style="background:white; border-radius:24px; padding:1.5rem;">
+                    <h3><i class="fas fa-sliders-h"></i> System Settings</h3>
+                    <div class="settings-group" style="margin-bottom:1rem;"><label>Scholarship Application Deadline</label><input type="date" value="2025-05-30" class="form-group" style="width: auto;"></div>
+                    <div class="settings-group" style="margin-bottom:1rem;"><label>Maximum Applications per Student</label><input type="number" value="3" class="form-group" style="width: auto;"></div>
+                    <div class="settings-group" style="margin-bottom:1rem;"><label>Minimum GPA Requirement</label><input type="number" step="0.1" value="1.5" class="form-group" style="width: auto;"></div>
+                    <button class="btn btn-primary" onclick="showToast('Settings saved successfully!', 'success')"><i class="fas fa-save"></i> Save Settings</button>
+                </div>
+            `;
+        }
+    }
+
+    function showAdminView(view) {
+        currentAdminView = view;
+        document.querySelectorAll('.admin-tab').forEach(tab => tab.classList.remove('active'));
+        if (view === 'pending') {
+            document.getElementById('pendingTab').classList.add('active');
+            document.getElementById('adminPendingContent').style.display = 'block';
+            document.getElementById('adminApprovedContent').style.display = 'none';
+            document.getElementById('adminReportsContent').style.display = 'none';
+            document.getElementById('adminSettingsContent').style.display = 'none';
+            document.getElementById('allStudentsContent').style.display = 'none';
+            renderAdminPendingReviews();
+        } else if (view === 'approved') {
+            document.getElementById('approvedTab').classList.add('active');
+            document.getElementById('adminPendingContent').style.display = 'none';
+            document.getElementById('adminApprovedContent').style.display = 'block';
+            document.getElementById('adminReportsContent').style.display = 'none';
+            document.getElementById('adminSettingsContent').style.display = 'none';
+            document.getElementById('allStudentsContent').style.display = 'none';
+            renderAdminApprovedView();
+        } else if (view === 'reports') {
+            document.getElementById('reportsTab').classList.add('active');
+            document.getElementById('adminPendingContent').style.display = 'none';
+            document.getElementById('adminApprovedContent').style.display = 'none';
+            document.getElementById('adminReportsContent').style.display = 'block';
+            document.getElementById('adminSettingsContent').style.display = 'none';
+            document.getElementById('allStudentsContent').style.display = 'none';
+            renderAdminReports();
+        } else if (view === 'settings') {
+            document.getElementById('settingsTab').classList.add('active');
+            document.getElementById('adminPendingContent').style.display = 'none';
+            document.getElementById('adminApprovedContent').style.display = 'none';
+            document.getElementById('adminReportsContent').style.display = 'none';
+            document.getElementById('adminSettingsContent').style.display = 'block';
+            document.getElementById('allStudentsContent').style.display = 'none';
+            renderAdminSettings();
+        } else if (view === 'students') {
+            document.getElementById('studentsTab').classList.add('active');
+            document.getElementById('adminPendingContent').style.display = 'none';
+            document.getElementById('adminApprovedContent').style.display = 'none';
+            document.getElementById('adminReportsContent').style.display = 'none';
+            document.getElementById('adminSettingsContent').style.display = 'none';
+            document.getElementById('allStudentsContent').style.display = 'block';
+            renderAllStudents();
+        }
+    }
+
+    // ==================== ADMIN DASHBOARD ====================
+    function showAdminDashboard() {
+        document.getElementById('heroTitle').innerHTML = 'Welcome back, Admin! 👔';
+        document.getElementById('heroSubtitle').innerHTML = 'Review pending applications, manage students, and configure scholarships.';
+        document.getElementById('heroSection').style.display = 'block';
+        document.getElementById('dynamicNavLinks').innerHTML = `<a class="active" onclick="showDashboard('admin')">Dashboard</a>`;
+        
+        document.getElementById('mainContent').innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-users"></i><h3>Total Applicants</h3><div class="value">187</div><div class="trend">+12% from last month</div></div>
+                <div class="stat-card"><i class="fas fa-hourglass-half"></i><h3>Pending Review</h3><div class="value" id="adminPendingCount">${pendingReviews.length}</div><div class="trend">Need attention</div></div>
+                <div class="stat-card"><i class="fas fa-check-double"></i><h3>Approved</h3><div class="value" id="adminApprovedCount">${approvedApplications.length}</div><div class="trend">This semester</div></div>
+                <div class="stat-card"><i class="fas fa-chart-line"></i><h3>Total Disbursed</h3><div class="value">₱1.85M</div><div class="trend">Across 5 scholarships</div></div>
+            </div>
+            <div class="tabs">
+                <button class="tab admin-tab active" id="pendingTab" onclick="showAdminView('pending')">📋 Pending (${pendingReviews.length})</button>
+                <button class="tab admin-tab" id="approvedTab" onclick="showAdminView('approved')">✅ Approved (${approvedApplications.length})</button>
+                <button class="tab admin-tab" id="studentsTab" onclick="showAdminView('students')">👨‍🎓 Students</button>
+                <button class="tab admin-tab" id="reportsTab" onclick="showAdminView('reports')">📊 Reports</button>
+                <button class="tab admin-tab" id="settingsTab" onclick="showAdminView('settings')">⚙️ Settings</button>
+            </div>
+            <div id="adminPendingContent"></div>
+            <div id="adminApprovedContent" style="display:none;"></div>
+            <div id="allStudentsContent" style="display:none;"></div>
+            <div id="adminReportsContent" style="display:none;"></div>
+            <div id="adminSettingsContent" style="display:none;"></div>
+        `;
+        
+        renderAdminPendingReviews();
+        renderAdminApprovedView();
+    }
+
+    // ==================== REGISTRAR DASHBOARD ====================
+    function showRegistrarDashboard() {
+        document.getElementById('heroTitle').innerHTML = 'Welcome back, Registrar! 📋';
+        document.getElementById('heroSubtitle').innerHTML = 'Review compliance queue in real-time and manage verified records.';
+        document.getElementById('heroSection').style.display = 'block';
+        document.getElementById('dynamicNavLinks').innerHTML = `<a class="active" onclick="showDashboard('registrar')">Dashboard</a>`;
+        
+        document.getElementById('mainContent').innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-clock"></i><h3>Pending Verification</h3><div class="value" id="pendingCount">${complianceQueue.length}</div></div>
+                <div class="stat-card"><i class="fas fa-check-circle"></i><h3>Verified Records</h3><div class="value" id="verifiedCount">${verifiedRecords.length}</div></div>
+            </div>
+            <div class="tabs">
+                <button class="tab active" onclick="showRegistrarTab('queue')">📋 Compliance Queue</button>
+                <button class="tab" onclick="showRegistrarTab('verified')">✅ Verified Records</button>
+            </div>
+            <div id="registrarQueueContent"></div>
+            <div id="registrarVerifiedContent" style="display:none;"></div>
+        `;
+        
+        window.showRegistrarTab = function(tab) {
+            const queueDiv = document.getElementById('registrarQueueContent');
+            const verifiedDiv = document.getElementById('registrarVerifiedContent');
+            if (tab === 'queue') {
+                queueDiv.style.display = 'block';
+                verifiedDiv.style.display = 'none';
+                renderComplianceQueue();
+            } else {
+                queueDiv.style.display = 'none';
+                verifiedDiv.style.display = 'block';
+                renderVerifiedRecords();
+            }
+        };
+        
+        document.getElementById('registrarQueueContent').innerHTML = `<div id="complianceQueueContent"></div>`;
+        document.getElementById('registrarVerifiedContent').innerHTML = `<div id="verifiedRecordsContent"></div>`;
+        renderComplianceQueue();
+        renderVerifiedRecords();
+        window.showRegistrarTab('queue');
+    }
+
+    // ==================== STUDENT DASHBOARD ====================
+    function showStudentDashboard() {
+        document.getElementById('heroTitle').innerHTML = 'Welcome back, Maria Santos! 👋';
+        document.getElementById('heroSubtitle').innerHTML = 'Track your applications, view your GPA, and check your approval status.';
+        document.getElementById('heroSection').style.display = 'block';
+        document.getElementById('dynamicNavLinks').innerHTML = `<a class="active" onclick="showDashboard('student')">Dashboard</a><a onclick="showApplyForm()">Apply Now</a><a onclick="showTrackPage()">Track Status</a><a onclick="showGuidelines()">Guidelines</a><a onclick="showApprovalStatus()">Approval Status</a>`;
+
+        document.getElementById('mainContent').innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-file-alt"></i><h3>Total Applications</h3><div class="value">${studentApplications.length}</div></div>
+                <div class="stat-card"><i class="fas fa-clock"></i><h3>Under Review</h3><div class="value">${studentApplications.filter(a => a.status === 'pending' || a.status === 'review').length}</div></div>
+                <div class="stat-card"><i class="fas fa-check-circle"></i><h3>Approved</h3><div class="value">${studentApplications.filter(a => a.status === 'approved').length}</div></div>
+                <div class="stat-card"><i class="fas fa-chart-line"></i><h3>Current GPA</h3><div class="value">1.5</div><div class="trend">Scale: 1.0 = Highest</div></div>
+            </div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+                <button class="btn btn-primary" onclick="showApplyForm()"><i class="fas fa-plus"></i> Apply Now</button>
+                <button class="btn btn-outline" onclick="showTrackPage()"><i class="fas fa-search"></i> Track Application</button>
+                <button class="btn btn-outline" onclick="showApprovalStatus()"><i class="fas fa-chart-simple"></i> Approval Status</button>
+            </div>
+            <h2 class="section-title">My Applications</h2>
+            <div class="applications-grid">${studentApplications.map(app => `<div class="app-card"><div class="app-header"><div class="app-title">${app.scholarship}</div><span class="status ${getStatusClass(app.status)}">${getStatusText(app.status)}</span></div><div class="app-date"><i class="far fa-calendar-alt"></i> Submitted: ${formatDate(app.date)}</div><div class="app-date"><i class="fas fa-tag"></i> Amount: ${app.amount}</div><div class="app-date"><i class="fas fa-qrcode"></i> Tracking: ${app.trackingId}</div><div class="timeline"><div class="timeline-step completed">Submitted</div><div class="timeline-step ${app.status !== 'pending' ? 'completed' : 'active'}">Review</div><div class="timeline-step ${app.status === 'approved' ? 'completed' : ''}">Decision</div></div><button class="btn btn-outline btn-sm" style="margin-top: 1rem;" onclick="showToast('Viewing ${app.scholarship}')">View Details</button></div>`).join('')}</div>
+            <div class="stats-grid" style="margin-top: 2rem;"><div class="stat-card"><i class="fas fa-lightbulb"></i><h3>Scholarship Tips</h3><div class="value" style="font-size:1rem;">Apply early! 🚀</div><small>40% more likely to be reviewed thoroughly</small></div><div class="stat-card"><i class="fas fa-file-pdf"></i><h3>Document Tips</h3><div class="value" style="font-size:1rem;">Clear & Legible 📄</div><small>Poor quality may delay application</small></div></div>
+        `;
+    }
+
+    // ==================== SPONSOR DASHBOARD ====================
+    function showSponsorDashboard() {
+        document.getElementById('heroTitle').innerHTML = 'Welcome, Scholarship Sponsor! 💝';
+        document.getElementById('heroSubtitle').innerHTML = 'Track your funding impact and download transparency reports.';
+        document.getElementById('heroSection').style.display = 'block';
+        document.getElementById('dynamicNavLinks').innerHTML = `<a class="active" onclick="showDashboard('sponsor')">Dashboard</a><a onclick="generateSponsorReport()">Generate Report</a>`;
+        
+        document.getElementById('mainContent').innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-dollar-sign"></i><h3>Total Fund Disbursed</h3><div class="value">₱${sponsorData.totalDisbursed.toLocaleString()}</div><div class="trend">Year-to-date</div></div>
+                <div class="stat-card"><i class="fas fa-users"></i><h3>Scholars Supported</h3><div class="value">${sponsorData.scholarsSupported}</div><div class="trend">This semester</div></div>
+                <div class="stat-card"><i class="fas fa-university"></i><h3>Active Scholarships</h3><div class="value">${sponsorData.activeScholarships}</div><div class="trend">Across all programs</div></div>
+                <div class="stat-card"><i class="fas fa-chart-pie"></i><h3>Utilization Rate</h3><div class="value">${sponsorData.utilizationRate}%</div><div style="background:#e5e7eb;border-radius:10px;height:8px;margin-top:8px;"><div style="width:${sponsorData.utilizationRate}%;background:var(--gradient-primary);height:8px;border-radius:10px;"></div></div></div>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:1.5rem; margin-bottom:2rem;">
+                <div class="app-card"><i class="fas fa-chart-line" style="font-size:2rem; color:var(--primary);"></i><h3>Funding Summary Report</h3><p>Total allocated: ₱1.6M | Disbursed: ₱${sponsorData.totalDisbursed.toLocaleString()} | Remaining: ₱355K</p><button class="btn btn-primary btn-sm" onclick="downloadSponsorReport()"><i class="fas fa-download"></i> Download Report</button></div>
+                <div class="app-card"><i class="fas fa-chart-simple" style="font-size:2rem; color:var(--primary);"></i><h3>Impact Metrics</h3><p>📊 Average GPA: 1.6<br>🎓 Retention Rate: 98%<br>⭐ Graduation Rate: 94%</p><button class="btn btn-outline btn-sm" onclick="showToast('Impact metrics refreshed!', 'info')">Refresh Metrics</button></div>
+                <div class="app-card"><i class="fas fa-calendar-alt" style="font-size:2rem; color:var(--primary);"></i><h3>Upcoming Disbursements</h3><p>📅 May 15, 2025 - ₱250,000<br>📅 June 1, 2025 - ₱180,000</p></div>
+            </div>
+            <div class="table-container"><h3 style="padding: 1rem 1rem 0;">📋 Transparency Data - Scholarship Breakdown</h3><table class="data-table"><thead><tr><th>Scholarship</th><th>Total Fund</th><th>Disbursed</th><th>Remaining</th><th>Scholars</th><th>Utilization</th></tr></thead><tbody>
+                ${sponsorData.scholarships.map(s => `<tr><td>${s.name}</td><td>₱${s.total.toLocaleString()}</td><td>₱${s.disbursed.toLocaleString()}</td><td>₱${s.remaining.toLocaleString()}</td><td>${s.scholars}</td><td><div style="background:#e5e7eb;border-radius:10px;height:6px;width:100px;"><div style="width:${Math.round((s.disbursed/s.total)*100)}%;background:var(--gradient-primary);height:6px;border-radius:10px;"></div></div></td></tr>`).join('')}
+            </tbody></table></div>
+            <div style="text-align:center; margin:2rem;"><button class="btn btn-primary" onclick="generateSponsorReport()"><i class="fas fa-file-alt"></i> Generate Full Transparency Report</button></div>
+        `;
+    }
+
+    // ==================== HELPER FUNCTIONS ====================
+    function showApplyForm() {
+        document.getElementById('heroSection').style.display = 'none';
+        document.getElementById('mainContent').innerHTML = `<div class="form-container"><h2>Apply for Scholarship</h2><p style="color: var(--gray); margin-bottom: 1.5rem;">Your current GPA: <strong>1.5</strong></p><form onsubmit="event.preventDefault(); submitApplication();"><div class="form-group"><label>Select Scholarship *</label><select id="scholarshipSelect">${scholarships.map(s => `<option>${s.name} (${s.amount}) - GPA Req: ${s.gpaReq}</option>`).join('')}</select></div><div class="form-row"><div class="form-group"><label>First Name</label><input value="Maria"></div><div class="form-group"><label>Last Name</label><input value="Santos"></div></div><div class="form-group"><label>Student ID</label><input value="NTC-2024-01234"></div><div class="form-group"><label>Email</label><input value="maria.santos@ntc.edu.ph"></div><div class="form-group"><label>Personal Statement</label><textarea rows="4" placeholder="Tell us why you deserve this scholarship..."></textarea></div><div style="display:flex; gap:1rem; justify-content:flex-end;"><button type="button" class="btn btn-outline" onclick="showDashboard('student')">Cancel</button><button type="submit" class="btn btn-primary">Submit <i class="fas fa-paper-plane"></i></button></div></form></div>`;
+    }
+
+    function submitApplication() {
+        showToast('✅ Application submitted successfully! Check your email for confirmation.', 'success');
+        setTimeout(() => showDashboard('student'), 2000);
+    }
+
+    function showTrackPage() {
+        document.getElementById('heroSection').style.display = 'none';
+        document.getElementById('mainContent').innerHTML = `<div class="form-container" style="max-width:600px;"><h2>Track Your Application</h2><div style="display:flex; gap:0.75rem; flex-wrap:wrap;"><input type="text" id="trackingId" placeholder="Enter Tracking ID" style="flex:1; padding:0.875rem; border:2px solid var(--gray-soft); border-radius:var(--radius);"><button class="btn btn-primary" onclick="trackApplication()"><i class="fas fa-search"></i> Track Now</button></div><div id="trackingResult"></div></div><h2 class="section-title">Recent Applications</h2><div class="applications-grid">${studentApplications.map(app => `<div class="app-card"><div class="app-title">${app.scholarship}</div><div class="app-date">Tracking: ${app.trackingId}</div><div class="app-date">Status: <span class="status ${getStatusClass(app.status)}">${getStatusText(app.status)}</span></div><button class="btn btn-outline btn-sm" onclick="document.getElementById('trackingId').value='${app.trackingId}'; trackApplication();">Track This</button></div>`).join('')}</div>`;
+    }
+
+    function trackApplication() {
+        const id = document.getElementById('trackingId').value;
+        const found = studentApplications.find(a => a.trackingId === id);
+        const resultDiv = document.getElementById('trackingResult');
+        if (found) {
+            resultDiv.innerHTML = `<div class="stat-card"><i class="fas fa-check-circle" style="color:#10b981;font-size:3rem;"></i><h3>Found!</h3><p><strong>${found.scholarship}</strong><br>Status: <span class="status ${getStatusClass(found.status)}">${getStatusText(found.status)}</span><br>Submitted: ${formatDate(found.date)}</p></div>`;
+            showToast('Application found!', 'success');
+        } else {
+            resultDiv.innerHTML = `<div class="stat-card" style="border-left-color:#ef4444;"><i class="fas fa-search" style="color:#ef4444;font-size:3rem;"></i><h3>Not Found</h3><p>No application with ID: ${id}</p></div>`;
+            showToast('Application not found', 'error');
+        }
+    }
+
+    function showGuidelines() {
+        document.getElementById('heroSection').style.display = 'none';
+        document.getElementById('mainContent').innerHTML = `<h2 class="section-title">📖 Scholarship Guidelines & Requirements</h2><div class="applications-grid">${scholarships.map(s => `<div class="app-card"><div class="app-title">${s.name}</div><div class="app-date">💰 Amount: ${s.amount}</div><div class="app-date">📅 Deadline: ${formatDate(s.deadline)}</div><div class="app-date">⭐ GPA Required: ${s.gpaReq}</div><div class="app-date">📄 ${s.description}</div></div>`).join('')}</div>`;
+    }
+
+    function showApprovalStatus() {
+        document.getElementById('heroSection').style.display = 'none';
+        document.getElementById('mainContent').innerHTML = `<h2 class="section-title">✅ Approval Status</h2><div class="applications-grid">${studentApplications.map(app => `<div class="app-card"><div class="app-header"><div class="app-title">${app.scholarship}</div><span class="status ${getStatusClass(app.status)}">${getStatusText(app.status)}</span></div><div class="app-date"><i class="fas fa-id-card"></i> ID: ${app.trackingId}</div><div class="timeline"><div class="timeline-step completed">Submitted</div><div class="timeline-step ${app.status !== 'pending' ? 'completed' : 'active'}">Review</div><div class="timeline-step ${app.status === 'approved' ? 'completed' : ''}">Decision</div></div>${app.status === 'approved' ? `<div class="app-date" style="color: var(--success-dark);"><i class="fas fa-trophy"></i> Approved!</div>` : `<div class="app-date" style="color: var(--warning-dark);"><i class="fas fa-clock"></i> In progress</div>`}</div>`).join('')}</div>`;
+    }
+
+    function generateSponsorReport() {
+        showToast('📊 Generating comprehensive funding report...', 'info');
+        setTimeout(() => showToast('Report ready! Check your email.', 'success'), 1500);
+    }
+
+    function downloadSponsorReport() {
+        showToast('📄 Downloading Funding Summary Report (PDF)...', 'success');
+    }
+
+    function formatDate(dateString) {
+        return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function getStatusClass(status) {
+        const map = { 'pending': 'status-pending', 'approved': 'status-approved', 'rejected': 'status-rejected', 'review': 'status-review', 'compliant': 'status-compliant', 'noncompliant': 'status-noncompliant' };
+        return map[status] || 'status-pending';
+    }
+
+    function getStatusText(status) {
+        const map = { 'pending': 'Pending', 'approved': 'Approved ✓', 'rejected': 'Rejected ✗', 'review': 'Under Review' };
+        return map[status] || status;
+    }
+
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    function toggleMobileMenu() {
+        const navLinks = document.getElementById('navLinks');
+        if (navLinks) navLinks.classList.toggle('show');
+    }
+
+    function logout() {
+        currentRole = 'student';
+        document.getElementById('mainApp').style.display = 'none';
+        document.getElementById('loginScreen').style.display = 'flex';
+        showToast('Logged out successfully');
+    }
+
+    function login() {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('mainApp').style.display = 'block';
+        showDashboard(currentRole);
+        showToast(`Welcome to GrantEase!`);
+    }
+
+    function showDashboard(role) {
+        currentRole = role;
+        document.getElementById('userName').innerText = role.charAt(0).toUpperCase() + role.slice(1);
+        if (role === 'student') showStudentDashboard();
+        else if (role === 'admin') showAdminDashboard();
+        else if (role === 'registrar') showRegistrarDashboard();
+        else if (role === 'sponsor') showSponsorDashboard();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Role selector on login
+    document.querySelectorAll('.role-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentRole = this.dataset.role;
+        });
+    });
+
+    // Expose global functions
+    window.showDashboard = showDashboard;
+    window.showApplyForm = showApplyForm;
+    window.showTrackPage = showTrackPage;
+    window.showGuidelines = showGuidelines;
+    window.showApprovalStatus = showApprovalStatus;
+    window.trackApplication = trackApplication;
+    window.submitApplication = submitApplication;
+    window.showToast = showToast;
+    window.toggleMobileMenu = toggleMobileMenu;
+    window.logout = logout;
+    window.adminApproveApplication = adminApproveApplication;
+    window.adminRejectApplication = adminRejectApplication;
+    window.adminReviewApplication = adminReviewApplication;
+    window.showAdminView = showAdminView;
+    window.generateSponsorReport = generateSponsorReport;
+    window.downloadSponsorReport = downloadSponsorReport;
+    window.markCompliance = markCompliance;
+    window.showRegistrarTab = showRegistrarTab;
+    window.openAddStudentModal = openAddStudentModal;
+    window.closeAddStudentModal = closeAddStudentModal;
+    window.addNewStudent = addNewStudent;
+</script>
+</body>
+</html>
